@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    {% block head %}{% endblock %}
+</head>
+<body>
+<!-- header -->
+<header>
+  <nav>
+    <div class="">
+      <div class="flex justify-between h-16 px-10 shadow items-center">
+        <div class="flex items-center space-x-8">
+          <h1 class="text-xl lg:text-2xl font-bold cursor-pointer">Домострой</h1>
+          <div class="hidden md:flex justify-around space-x-4">
+            <a href="/" class="hover:text-indigo-600 text-gray-700">Главная</a>
+            <a href="/help" class="hover:text-indigo-600 text-gray-700">Справка</a>
+              {% if admin %}
+                <a href="/report" class="hover:text-indigo-600 text-gray-700">Отчеты</a>
+                <a href="/admin" class="hover:text-indigo-600 text-red-700">Admin Link</a>
+              {% endif %}
+          </div>
+        </div>
+          {% if email %}
+              <div>
+              <a href="{{ url_for('routers.cart', cart_id=user_id) }}" class="mr-2">Корзина</a>
+              <a href="{{ url_for('routers.logout') }}">Logout</a>
+              </div>
+          {% else %}
+              <div class="flex space-x-4 items-center">
+                <a href="/login" class="text-gray-800 text-sm">LOGIN</a>
+                <a href="/register" class="bg-blue-500 px-4 py-2 rounded text-white hover:bg-blue-600 text-sm">Register</a>
+              </div>
+          {% endif %}
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+{% block content %}
+{% endblock %}
+</main>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</html>

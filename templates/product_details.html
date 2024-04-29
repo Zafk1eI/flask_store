@@ -1,0 +1,43 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+
+<div class="py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row -mx-4">
+            <div class="md:flex-1 px-4">
+                <div class="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
+                    <img class="w-full h-full object-cover" src="{{ product.image_path }}" alt="Product Image">
+                </div>
+            </div>
+            <div class="md:flex-1 px-4">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">{{ product.product_name }}</h2>
+                <div class="flex mb-4">
+                    <div class="mr-4">
+                        <span class="font-bold text-gray-700 dark:text-gray-300">Цена:</span>
+                        <span class="text-gray-600 dark:text-gray-300">{{ product.product_price }} руб.</span>
+                    </div>
+                    <div>
+                        <span class="font-bold text-gray-700 dark:text-gray-300">Наличие :</span>
+                        <span class="text-gray-600 dark:text-gray-300">В наличии {{ product.product_count }}</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-bold text-gray-700 dark:text-gray-300">Описание: </span>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-2">
+                        {{ product.description }}
+                    </p>
+                <div class="flex justify-center mx-2 my-4">
+                  <form action="{{ url_for('routers.add_to_cart', product_id=product.product_id) }}" method="post">
+                    <div class="px-2">
+                        <button class="w-full bg-blue-500 dark:bg-blue-500 text-white py-2 px-4 rounded-full font-bold hover:bg-blue-600 dark:hover:bg-blue-600">Add to Cart</button>
+                    </div>
+                   </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

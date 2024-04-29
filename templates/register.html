@@ -1,0 +1,28 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+  <div class="h-screen bg-gray-100 flex justify-center items-center flex-col">
+      {% for msg in get_flashed_messages() %}
+          <div class="mb-2 bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative flash" role="alert">
+              <span class="block sm:inline">{{ msg }}</span>
+          </div>
+      {% endfor %}
+    <div class="py-6 px-8 w-80 h-[58%] mt-4 bg-white rounded shadow-xl">
+      <form action="/register" method="POST">
+        <div class="mb-6">
+          <label for="email" class="block text-gray-800 font-bold">Email:</label>
+            <input type="text" name="email" id="email" placeholder="Введите email" class="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" required/>
+        </div>
+          <div class="mb-6">
+          <label for="password" class="block text-gray-800 font-bold">Пароль:</label>
+              <input type="password" name="password" id="password" placeholder="Введите пароль" class="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" required/>
+              </div>
+               <div class="mb-6">
+                   <label for="confirm-password" class="block text-gray-800 font-bold">Подтвердите пароль:</label>
+              <input type="password" name="confirm-password" id="confirm-password" placeholder="повторите пароль" class="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" required/>
+              </div>
+        <button type="submit" class="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded">Регистрация</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "layout/layout.html" %}
+
+{% block head %}
+    <title>Report</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-6">Отчет: {{ report_name }}</h1>
+        <div class="flex justify-between mb-4">
+            <!-- Кнопка для отчета о самом популярном продукте -->
+            <a href="/most_popular" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Популярные
+            </a>
+            <!-- Кнопка для другого действия -->
+            <a href="/total_by_category" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Выручка по категориям
+            </a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">{{ first_th }}</th>
+                        <th class="px-4 py-2">{{ second_th }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td class="border px-4 py-2">{{ product[1] }}</td>
+                        <td class="border px-4 py-2">{{ product[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+    {% for msg in get_flashed_messages() %}
+        <div class="mb-2 bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative flash" role="alert">
+            <span class="block sm:inline">{{ msg }}</span>
+        </div>
+    {% endfor %}
+  <section class="bg-gray-100 py-12 sm:py-16 lg:py-10">
+  <div class="mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-center">
+      <h1 class="text-2xl font-semibold text-gray-900">Корзина</h1>
+    </div>
+    <div class="mx-auto mt-8 max-w-2xl md:mt-12">
+      <div class="bg-white shadow">
+        <div class="px-4 py-6 sm:px-8 sm:py-10">
+          <div class="flow-root">
+            <ul class="-my-8">
+                {% for product in cart_products %}
+              <li class="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
+                <div class="shrink-0">
+                  <img class="h-24 w-24 max-w-full rounded-lg object-cover" src="{{ product.image_path }}" alt="{{ product.product_name }}" />
+                </div>
+
+                <div class="relative flex flex-1 flex-col justify-between">
+                  <div class="sm:col-gap-5 sm:grid sm:grid-cols-2">
+                    <div class="pr-8 sm:pr-5">
+                      <p class="text-base font-semibold text-gray-900">{{ product.product_name }}</p>
+                    </div>
+
+                    <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
+                      <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
+                          {{ product.product_price }} руб.
+                      </p>
+
+                      <div class="sm:order-1">
+                        <div class="mx-auto flex h-8 items-stretch text-gray-600">
+                            <form method="POST">
+                              <input id="{{ product.product_id }}" type="number" class="w-16 bg-gray-100 px-4 text-xs uppercase text-center" min="1" value="1" max="{{ product.product_count }}"/>
+                            </form>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pt-14 flex sm:top-auto">
+                    <form method="post" action="/cart/remove/{{ product.product_id }}">
+                    <button type="submit" class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" class=""></path>
+                    </svg>
+                    </button>
+                </form>
+                </div>
+              </li>
+                {% endfor %}
+            </ul>
+          </div>
+
+          <div class="mt-6 border-t border-b py-4">
+            <div class="flex items-center justify-between">
+              <p class="text-sm text-gray-400">Цена</p>
+              <p class="text-lg font-semibold text-gray-900">{{ total_price }} руб.</p>
+            </div>
+            <div class="flex items-center justify-between">
+              <p class="text-sm text-gray-400">Доставка</p>
+              <p class="text-lg font-semibold text-gray-900">200 руб.</p>
+            </div>
+          </div>
+          <div class="mt-6 flex items-center justify-between">
+            <p class="text-sm font-medium text-gray-900">Общая цена</p>
+            <p class="text-2xl font-semibold text-gray-900"><span class="text-xs font-normal text-gray-400">РУБ.</span>{{ end_price }}</p>
+          </div>
+
+          <div class="mt-6 text-center">
+           <a href="/checkout">
+            <button type="submit" class="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
+              Заказать
+              <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:ml-8 ml-4 h-6 w-6 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
